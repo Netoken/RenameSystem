@@ -17,14 +17,20 @@ class MyForm(QMainWindow, mainwindow.Ui_Dialog):
         self.okButtonRN.clicked.connect(self.RenameRN)
 
     def choosePath(self):
+
         options = QFileDialog.Options()
         path = QFileDialog.getExistingDirectory(self, "選擇資料夾", options=options)
-        if self.tabWidget.currentIndex() is 0:
-            self.lineEditPathRP.setText(path)
-            self.findDirAllData(path, self.browserRP)
-        elif self.tabWidget.currentIndex() is 1:
-            self.lineEditPathRN.setText(path)
-            self.findDirAllData(path, self.browserRN)
+        if path is '':
+            pass
+        else:
+            if self.tabWidget.currentIndex() is 0:
+                self.lineEditPathRP.setText(path)
+                self.findDirAllData(path, self.browserRP)
+            elif self.tabWidget.currentIndex() is 1:
+                self.lineEditPathRN.setText(path)
+                self.findDirAllData(path, self.browserRN)
+
+
 
     def findDirAllData(self, path, browserName):
         browserName.clear()
