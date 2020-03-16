@@ -30,17 +30,17 @@ class MyForm(QMainWindow, mainwindow.Ui_Dialog):
                 self.lineEditPathRN.setText(path)
                 self.findDirAllData(path, self.browserRN)
 
-
-
     def findDirAllData(self, path, browserName):
         browserName.clear()
         for i in os.listdir(path):
             browserName.append(i)
 
     def RenameRP(self):
-        for i in os.listdir(self.lineEditPathRP.text()):
-            os.rename(os.path.join(self.lineEditPathRP.text(), i),
-                      os.path.join(self.lineEditPathRP.text(), i.replace(self.lineEditOldRP.text(), self.lineEditNewRP.text())))
+        for index, name in enumerate(os.listdir(self.lineEditPathRP.text())):
+            subTitle = os.path.splitext(name)[-1]
+            currentName = os.path.splitext(name)[0]
+            os.rename(os.path.join(self.lineEditPathRP.text(), name),
+                      os.path.join(self.lineEditPathRP.text(), currentName.replace(self.lineEditOldRP.text(), self.lineEditNewRP.text()) + subTitle))
         self.findDirAllData(self.lineEditPathRP.text(), self.browserRP)
 
     def RenameRN(self):
