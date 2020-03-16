@@ -36,18 +36,24 @@ class MyForm(QMainWindow, mainwindow.Ui_Dialog):
             browserName.append(i)
 
     def RenameRP(self):
-        for index, name in enumerate(os.listdir(self.lineEditPathRP.text())):
-            subTitle = os.path.splitext(name)[-1]
-            currentName = os.path.splitext(name)[0]
-            os.rename(os.path.join(self.lineEditPathRP.text(), name),
-                      os.path.join(self.lineEditPathRP.text(), currentName.replace(self.lineEditOldRP.text(), self.lineEditNewRP.text()) + subTitle))
+        if self.lineEditOldRP.text() is '' or self.lineEditNewRP.text() is '':
+            QMessageBox.information(self, "Error", "輸入框請勿空白!!")
+        else:
+            for index, name in enumerate(os.listdir(self.lineEditPathRP.text())):
+                subTitle = os.path.splitext(name)[-1]
+                currentName = os.path.splitext(name)[0]
+                os.rename(os.path.join(self.lineEditPathRP.text(), name),
+                          os.path.join(self.lineEditPathRP.text(), currentName.replace(self.lineEditOldRP.text(), self.lineEditNewRP.text()) + subTitle))
         self.findDirAllData(self.lineEditPathRP.text(), self.browserRP)
 
     def RenameRN(self):
-        for index, name in enumerate(os.listdir(self.lineEditPathRN.text())):
-            subTitle = os.path.splitext(name)[-1]
-            os.rename(os.path.join(self.lineEditPathRN.text(), name),
-                      os.path.join(self.lineEditPathRN.text(), (self.lineEditNewRN.text() + ('%04d'%index) + subTitle)))
+        if self.lineEditNewRN.text() is '':
+            QMessageBox.information(self, "Error", "輸入框請勿空白!!")
+        else:
+            for index, name in enumerate(os.listdir(self.lineEditPathRN.text())):
+                subTitle = os.path.splitext(name)[-1]
+                os.rename(os.path.join(self.lineEditPathRN.text(), name),
+                          os.path.join(self.lineEditPathRN.text(), (self.lineEditNewRN.text() + ('%04d'%index) + subTitle)))
         self.findDirAllData(self.lineEditPathRN.text(), self.browserRN)
 
 if __name__ == "__main__":
